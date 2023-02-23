@@ -701,7 +701,7 @@ public class ShopInteractListener implements Listener {
 
                         ShopProduct newProduct = new ShopProduct(product, newAmount);
                         double newPrice = (finalPrice / finalAmount) * newAmount;
-                        double tax = GlobalConfig.shopTaxes.getOrDefault(itemStack.getType().toString(), GlobalConfig.shopTaxes.get("default"));
+                        double tax = 0; //GlobalConfig.shopTaxes.getOrDefault(itemStack.getType().toString(), GlobalConfig.shopTaxes.get("default"));
 
                         if (freeSpace >= newAmount) {
                             plugin.getDebugLogger().debug(executor.getName() + " has enough inventory space for " + freeSpace + " items (#" + shop.getID() + ")");
@@ -892,7 +892,7 @@ public class ShopInteractListener implements Listener {
 
                     ShopProduct newProduct = new ShopProduct(product, newAmount);
                     double newPrice = (finalPrice / finalAmount) * newAmount;
-                    double tax = plugin.getShopChestConfig().shopTaxes.getOrDefault(itemStack.getType().toString(), plugin.getShopChestConfig().shopTaxes.get("default"));
+                    double tax = 0; //plugin.getShopChestConfig().shopTaxes.getOrDefault(itemStack.getType().toString(), plugin.getShopChestConfig().shopTaxes.get("default"));
 
                     if (freeSpace >= newAmount || shop.getShopType() == ShopType.ADMIN) {
                         plugin.getDebugLogger().debug("Chest has enough inventory space for " + freeSpace + " items (#" + shop.getID() + ")");

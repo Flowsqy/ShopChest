@@ -1,0 +1,11 @@
+plugins {
+    id 'de.epiceric.java-conventions'
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT'
+    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.7'
+    api project(":common")
+}
+
+description = 'shopchest-external'

@@ -126,8 +126,10 @@ public class ShopChest extends JavaPlugin {
         shopUtils = new ShopUtils(this);
 
         // Load language messages
+        /*
         saveResource("item_names.txt", true);
         LanguageUtils.load();
+        */
 
         // Load hologram format
         File hologramFormatFile = new File(getDataFolder(), "hologram-format.yml");

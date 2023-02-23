@@ -13,36 +13,8 @@
         <module>common</module>
         <module>plugin</module>
         <module>external</module>
+        <module>nms</module>
     </modules>
-
-    <profiles>
-        <profile>
-            <id>build-nms</id>
-            <activation>
-                <property>
-                    <name>buildNMS</name>
-                </property>
-            </activation>
-            <modules>
-                <module>nms</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>import-nms</id>
-            <activation>
-                <property>
-                    <name>!buildNMS</name>
-                </property>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>github</id>
-                    <name>GitHub Packages</name>
-                    <url>https://maven.pkg.github.com/Flowsqy/ShopChest</url>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
 
     <name>ShopChest</name>
     <url>https://www.spigotmc.org/resources/shopchest.11431/</url>

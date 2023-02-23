@@ -15,6 +15,15 @@ public class Transaction {
     private int amount;
     private final double moneyAmountRequired, moneyAmountGiven;
 
+    public Transaction(Actor buyer, Actor seller, TransactionInformer informer, ItemStack itemStack, double moneyAmountRequired, double moneyAmountGiven) {
+        this.buyer = buyer;
+        this.seller = seller;
+        this.informer = informer;
+        this.itemStack = itemStack;
+        this.moneyAmountRequired = moneyAmountRequired;
+        this.moneyAmountGiven = moneyAmountGiven;
+    }
+
     /**
      * Process to the transaction
      *
@@ -120,8 +129,8 @@ public class Transaction {
     }
 
     private void inform() {
-        String amountStr;
-        String productName;
+        String amountStr = null;
+        String productName = null;
         informer.sendInitiatorSuccess(amountStr, productName, moneyAmountGiven, moneyAmountRequired);
         informer.sendTargetSuccess(amountStr, productName, moneyAmountGiven, moneyAmountRequired);
     }

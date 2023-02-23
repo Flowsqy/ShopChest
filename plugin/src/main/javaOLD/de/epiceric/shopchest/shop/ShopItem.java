@@ -4,7 +4,7 @@ import de.epiceric.shopchest.ShopChest;
 import de.epiceric.shopchest.nms.FakeItem;
 import de.epiceric.shopchest.nms.PacketQueue;
 import de.epiceric.shopchest.nms.Platform;
-import de.epiceric.shopchest.nms.metadata.MetadataProperties;
+import de.epiceric.shopchest.nms.network.entity.metadata.MetadataProperties;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
