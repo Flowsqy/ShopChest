@@ -1,0 +1,83 @@
+import fr.flowsqy.specialsourcegp.task.RemapJar
+
+plugins {
+    id "de.epiceric.java-conventions"
+    id "com.github.flowsqy.specialsource" apply false
+}
+
+repositories {
+    mavenLocal()
+}
+
+configurations {
+    mappings {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    nms {
+        canBeResolved = true
+        canBeConsumed = false
+        transitive = false
+    }
+    compileOnly.extendsFrom(nms)
+}
+
+dependencies {
+    def nmsVersion = project.ext.nmsVersion
+    nms group: "org.spigotmc", name: "spigot", "version": nmsVersion, classifier:"remapped-mojang"
+    mappings group: "org.spigotmc", name: "spigot", "version": nmsVersion, classifier:"remapped-obf"
+    mappings group: "org.spigotmc", name: "minecraft-server", version: nmsVersion, classifier: "maps-mojang", ext: "txt"
+    mappings group: "org.spigotmc", name: "minecraft-server", version: nmsVersion, classifier: "maps-spigot", ext: "csrg"
+    implementation project(":nms:interface")
+}
+
+
+java {
+    sourceCompatibility = "17"
+    targetCompatibility = "17"
+}
+
+def remapObf = tasks.register("remap-obf", RemapJar) {
+    input = tasks.jar.archiveFile
+    output = tasks.jar.destinationDirectory.file("Obf.jar")
+    mapping {
+        def mappingProvider =  project.configurations.mappings.incoming.artifacts.resolvedArtifacts.map {artSet ->
+            artSet.find(art ->
+                    art.id.displayName.contains("maps-mojang")
+            ).getFile()
+        }
+
+        def dependencyProvider =  project.configurations.nms.incoming.artifacts.resolvedArtifacts.map {artSet ->
+            artSet.find(art ->
+                    art.id.displayName.contains("remapped-mojang")
+            ).getFile()
+        }
+        mappingFiles.from = mappingProvider.map {it.getAbsolutePath()}
+        reverse = true
+        inheritance {
+            jars = layout.file(dependencyProvider as Provider<File>).map {Collections.singletonList(it)}
+        }
+    }
+}
+
+def remapSpigot = tasks.register("remap-spigot", RemapJar) {
+    input = remapObf.flatMap {it.output}
+    output = tasks.jar.destinationDirectory.file("Prod.jar")
+    mapping {
+        def mappingProvider =  project.configurations.mappings.incoming.artifacts.resolvedArtifacts.map {artSet ->
+            artSet.find(art ->
+                    art.id.displayName.contains("maps-spigot")
+            ).getFile()
+        }
+
+        def dependencyProvider =  project.configurations.mappings.incoming.artifacts.resolvedArtifacts.map {artSet ->
+            artSet.find(art ->
+                    art.id.displayName.contains("remapped-obf")
+            ).getFile()
+        }
+        mappingFiles.from = mappingProvider.map {it.getAbsolutePath()}
+        inheritance {
+            jars = layout.file(dependencyProvider as Provider<File>).map {Collections.singletonList(it)}
+        }
+    }
+}

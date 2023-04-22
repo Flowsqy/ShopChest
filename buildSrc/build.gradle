@@ -12,4 +12,12 @@ plugins {
 repositories {
     // Use the plugin portal to apply community plugins in convention plugins.
     gradlePluginPortal()
+
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
+dependencies {
+    implementation "com.github.Flowsqy:SpecialSourceGradlePlugin:a0434bf32a"
 }
