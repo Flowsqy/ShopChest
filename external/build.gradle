@@ -2,10 +2,15 @@ plugins {
     id 'de.epiceric.java-conventions'
 }
 
+repositories {
+    maven {
+        url = uri('https://maven.enginehub.org/repo/')
+    }
+}
+
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT'
-    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.7'
     api project(":common")
+    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.7'
 }
 
 description = 'shopchest-external'

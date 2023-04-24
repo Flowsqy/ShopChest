@@ -4,7 +4,16 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
+    //mavenLocal()
+
+    /*
+    maven {
+        url = uri('https://jitpack.io')
+    }
+
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }*/
 }
 
 dependencies {
@@ -22,8 +31,8 @@ dependencies {
 
     //api project(':shopchest-nms-all')
     //api project(':shopchest-external')
-    compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
-    compileOnly 'org.projectlombok:lombok:1.18.22'
+    //compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
+    //compileOnly 'org.projectlombok:lombok:1.18.22'
 }
 
 description = 'shopchest-plugin'

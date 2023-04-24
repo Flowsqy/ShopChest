@@ -7,6 +7,3 @@ ext {
 }
 
 plugins.apply("de.epiceric.nms-conventions")
-
-description = 'shopchest-nms-v1_17_R1'
-
