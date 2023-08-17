@@ -1,9 +1,0 @@
-plugins {
-    id "de.epiceric.nms-conventions" apply false
-}
-
-ext {
-    nmsVersion = "1.18.2-R0.1-SNAPSHOT"
-}
-
-plugins.apply("de.epiceric.nms-conventions")

@@ -1,6 +1,0 @@
-# The shop taxes for items in percent
-# e.g. to apply a 10 percent tax on stone you need to write:
-#stone: 10
-
-# The default tax
-default: 0

@@ -1,5 +1,0 @@
-plugins {
-    id 'de.epiceric.java-conventions'
-}
-
-description = 'shopchest-common'
