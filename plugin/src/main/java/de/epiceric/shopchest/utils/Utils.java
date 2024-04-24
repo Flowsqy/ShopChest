@@ -302,8 +302,7 @@ public class Utils {
      */
     public static void sendUpdateMessage(ShopChest plugin, Player p) {
         final MessageRegistry messageRegistry = plugin.getLanguageManager().getMessageRegistry();
-        plugin.getPlatform().getTextComponentHelper().sendUpdateMessage(
-                p,
+        plugin.getPlatform().getTextComponentHelper().sendUpdateMessage(p,
                 messageRegistry.getMessage(Message.UPDATE_AVAILABLE,
                         new Replacement(Placeholder.VERSION, plugin.getLatestVersion())),
                 messageRegistry.getMessage(Message.UPDATE_CLICK_TO_DOWNLOAD),

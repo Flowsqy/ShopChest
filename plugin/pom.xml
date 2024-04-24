@@ -15,6 +15,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.MilkBowl</groupId>
@@ -88,6 +89,17 @@
             <groupId>de.epiceric</groupId>
             <artifactId>shopchest-nms-all</artifactId>
             <classifier>${nms-classifier}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>de.epiceric</groupId>
+            <artifactId>shopchest-nms-interface</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.epiceric</groupId>
+            <artifactId>shopchest-nms-reflection</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
