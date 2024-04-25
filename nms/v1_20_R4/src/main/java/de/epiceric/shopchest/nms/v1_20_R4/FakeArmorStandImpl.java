@@ -10,10 +10,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.level.Level;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_20_R4.CraftWorld;
+import org.bukkit.craftbukkit.v1_20_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_20_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
@@ -73,7 +78,11 @@ public class FakeArmorStandImpl extends FakeEntityImpl<String> implements FakeAr
     protected void addSpecificData(List<SynchedEntityData.DataValue<?>> packedItems, String name) {
         packedItems.add(SynchedEntityData.DataValue.create(DATA_SHARED_FLAGS_ID, INVISIBLE_FLAG));
         packedItems.add(SynchedEntityData.DataValue.create(DATA_CUSTOM_NAME, Optional.ofNullable(
-                Component.Serializer.fromJson(ComponentSerializer.toString(TextComponent.fromLegacyText(name)), (HolderLookup.Provider) this)
+                Component.Serializer.fromJson(
+                        ComponentSerializer.toString(
+                                TextComponent.fromLegacyText(name)
+                        ), (HolderLookup.Provider) this // probably wrong
+                )
         )));
         packedItems.add(SynchedEntityData.DataValue.create(DATA_CUSTOM_NAME_VISIBLE, true));
         packedItems.add(SynchedEntityData.DataValue.create(ArmorStand.DATA_CLIENT_FLAGS, MARKER_FLAG));
@@ -81,16 +90,21 @@ public class FakeArmorStandImpl extends FakeEntityImpl<String> implements FakeAr
 
     @Override
     public void setLocation(Location location, Iterable<Player> receivers) {
-        final FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
-        buffer.writeVarInt(entityId);
-        buffer.writeDouble(location.getX());
-        buffer.writeDouble(location.getY() + MARKER_ARMOR_STAND_OFFSET);
-        buffer.writeDouble(location.getZ());
-        buffer.writeByte(0);
-        buffer.writeByte(0);
-        buffer.writeBoolean(false);
-        final ClientboundTeleportEntityPacket positionPacket = new ClientboundTeleportEntityPacket(buffer);
+        ServerLevel world = ((CraftWorld) location.getWorld()).getHandle();
+        ArmorStand armorStand = new ArmorStand(EntityType.ARMOR_STAND, world);
+
+        // Set its position
+        armorStand.setPos(location.getX(), location.getY() + MARKER_ARMOR_STAND_OFFSET, location.getZ());
+
+        // Add any other necessary properties, e.g., custom name
+        armorStand.setCustomName(Component.literal("Custom Name"));
+        armorStand.setCustomNameVisible(true);
+
+        // Spawn the entity in the world
+        world.addFreshEntity(armorStand);
+
+        // Send the teleport packet to receivers
+        ClientboundTeleportEntityPacket positionPacket = new ClientboundTeleportEntityPacket(armorStand);
         sendPacket(positionPacket, receivers);
     }
-
 }
