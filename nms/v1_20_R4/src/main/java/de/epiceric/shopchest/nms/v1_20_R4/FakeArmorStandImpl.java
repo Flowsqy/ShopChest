@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.craftbukkit.v1_20_R4.CraftWorld;
@@ -69,16 +70,6 @@ public class FakeArmorStandImpl extends FakeEntityImpl<String> implements FakeAr
     protected int getDataItemCount() {
         return 4;
     }
-    private HolderLookup.Provider getHolderLookupProvider() {
-        try {
-            Server server = (Server) Class.forName("org.bukkit.Bukkit").getMethod("getServer").invoke(null);
-            Object holderLookup = server.getClass().getMethod("getHolderLookup").invoke(server);
-            return (HolderLookup.Provider) holderLookup;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
     @Override
     protected void addSpecificData(List<SynchedEntityData.DataValue<?>> packedItems, String name) {
         packedItems.add(SynchedEntityData.DataValue.create(DATA_SHARED_FLAGS_ID, INVISIBLE_FLAG));
@@ -86,7 +77,7 @@ public class FakeArmorStandImpl extends FakeEntityImpl<String> implements FakeAr
                 Component.Serializer.fromJson(
                         ComponentSerializer.toString(
                                 TextComponent.fromLegacyText(name)
-                        ), getHolderLookupProvider()
+                        )
                 )
         )));
         packedItems.add(SynchedEntityData.DataValue.create(DATA_CUSTOM_NAME_VISIBLE, true));
