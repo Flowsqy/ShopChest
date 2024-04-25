@@ -1,11 +1,9 @@
 package de.epiceric.shopchest.nms.v1_20_R4;
 
 import de.epiceric.shopchest.nms.FakeArmorStand;
-import io.netty.buffer.Unpooled;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -14,11 +12,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.ArmorStand;
-import net.minecraft.world.level.Level;
 import org.bukkit.Location;
+import org.bukkit.Server;
 import org.bukkit.craftbukkit.v1_20_R4.CraftWorld;
-import org.bukkit.craftbukkit.v1_20_R4.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_20_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
@@ -73,7 +69,16 @@ public class FakeArmorStandImpl extends FakeEntityImpl<String> implements FakeAr
     protected int getDataItemCount() {
         return 4;
     }
-
+    private HolderLookup.Provider getHolderLookupProvider() {
+        try {
+            Server server = (Server) Class.forName("org.bukkit.Bukkit").getMethod("getServer").invoke(null);
+            Object holderLookup = server.getClass().getMethod("getHolderLookup").invoke(server);
+            return (HolderLookup.Provider) holderLookup;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     @Override
     protected void addSpecificData(List<SynchedEntityData.DataValue<?>> packedItems, String name) {
         packedItems.add(SynchedEntityData.DataValue.create(DATA_SHARED_FLAGS_ID, INVISIBLE_FLAG));
@@ -81,7 +86,7 @@ public class FakeArmorStandImpl extends FakeEntityImpl<String> implements FakeAr
                 Component.Serializer.fromJson(
                         ComponentSerializer.toString(
                                 TextComponent.fromLegacyText(name)
-                        ), (HolderLookup.Provider) this // probably wrong
+                        ), getHolderLookupProvider()
                 )
         )));
         packedItems.add(SynchedEntityData.DataValue.create(DATA_CUSTOM_NAME_VISIBLE, true));
@@ -91,14 +96,14 @@ public class FakeArmorStandImpl extends FakeEntityImpl<String> implements FakeAr
     @Override
     public void setLocation(Location location, Iterable<Player> receivers) {
         ServerLevel world = ((CraftWorld) location.getWorld()).getHandle();
-        ArmorStand armorStand = new ArmorStand(EntityType.ARMOR_STAND, world);
+        ArmorStand armorStand = (ArmorStand) getEntityType().create(world);
 
         // Set its position
         armorStand.setPos(location.getX(), location.getY() + MARKER_ARMOR_STAND_OFFSET, location.getZ());
 
+        // TODO
         // Add any other necessary properties, e.g., custom name
-        armorStand.setCustomName(Component.literal("Custom Name"));
-        armorStand.setCustomNameVisible(true);
+
 
         // Spawn the entity in the world
         world.addFreshEntity(armorStand);
