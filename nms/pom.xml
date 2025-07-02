@@ -31,6 +31,7 @@
         <module>v1_21_R2</module>
         <module>v1_21_R3</module>
         <module>v1_21_R4</module>
+        <module>v1_21_R5</module>
         <module>all</module>
     </modules>
 
@@ -143,6 +144,12 @@
             <dependency>
                 <groupId>de.epiceric</groupId>
                 <artifactId>shopchest-nms-v1_21_R4</artifactId>
+                <version>1.0.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.epiceric</groupId>
+                <artifactId>shopchest-nms-v1_21_R5</artifactId>
                 <version>1.0.0</version>
                 <scope>provided</scope>
             </dependency>

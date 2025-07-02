@@ -87,6 +87,10 @@
             <groupId>de.epiceric</groupId>
             <artifactId>shopchest-nms-v1_21_R4</artifactId>
         </dependency>
+        <dependency>
+            <groupId>de.epiceric</groupId>
+            <artifactId>shopchest-nms-v1_21_R5</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
