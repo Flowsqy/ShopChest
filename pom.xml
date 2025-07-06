@@ -269,15 +269,6 @@
                 <scope>provided</scope>
             </dependency>
 
-            <!-- Nms dependency -->
-            <dependency>
-                <groupId>org.spigotmc</groupId>
-                <artifactId>spigot</artifactId>
-                <version>${spigot.version}</version>
-                <classifier>remapped-mojang</classifier>
-                <scope>provided</scope>
-            </dependency>
-
             <!-- Only required for build to succeed ? -->
             <dependency>
                 <groupId>org.projectlombok</groupId>

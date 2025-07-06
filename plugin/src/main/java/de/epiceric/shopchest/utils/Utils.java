@@ -315,6 +315,8 @@ public class Utils {
     private final static int revision;
 
     static {
+        String minecraftVersion = Bukkit.getBukkitVersion();
+        // Old way to parse it
         String rawMajorVersion = null;
         try {
             final String bukkitVersion = Bukkit.getServer().getBukkitVersion();
