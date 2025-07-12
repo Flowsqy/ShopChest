@@ -8,3 +8,7 @@ repositories {
     // Use the plugin portal to apply community plugins in convention plugins.
     gradlePluginPortal()
 }
+
+dependencies {
+    implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
+}
