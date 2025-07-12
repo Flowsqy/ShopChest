@@ -15,11 +15,9 @@
 
     <packaging>pom</packaging>
 
-    <!--
     <properties>
-        <builtFilePath>target/${project.build.finalName}-${nms-classifier}.jar</builtFilePath>
+        <builtFilePath>target/${project.build.finalName}-nms-spigot-assembly.jar</builtFilePath>
     </properties>
-    -->
 
     <build>
         <plugins>
@@ -55,7 +53,6 @@
                             <artifactId>${project.artifactId}</artifactId>
                             <version>${project.version}</version>
                             <packaging>jar</packaging>
-                            <classifier>${nms-classifier}</classifier>
                             <file>${builtFilePath}</file>
                         </configuration>
                     </execution>

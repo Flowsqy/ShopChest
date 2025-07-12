@@ -34,8 +34,7 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
 
         <!-- JDK Version -->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.release>21</maven.compiler.release>
 
         <!-- Default Spigot version for nms implementation. Must be overridden  -->
         <spigot.version>defaultVersion</spigot.version>

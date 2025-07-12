@@ -14,6 +14,7 @@
 
     <properties>
         <spigot.version>1.17.1-R0.1-SNAPSHOT</spigot.version>
+        <maven.compiler.release>11</maven.compiler.release>
     </properties>
 
     <dependencies>
