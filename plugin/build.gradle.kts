@@ -39,6 +39,7 @@ tasks.shadowJar {
         include(dependency("de.epiceric:shopchest-nms-spigot-all"))
         include(dependency("org.inventivetalent:reflectionhelper"))
         include(dependency("org.codemc.worldguardwrapper:worldguardwrapper"))
+        include(dependency("org.bstats:bstats-base"))
         include(dependency("org.bstats:bstats-bukkit"))
         include(dependency("com.zaxxer:HikariCP"))
     }
