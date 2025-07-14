@@ -1,5 +1,5 @@
 plugins {
-    id("buildlogic.java-application-conventions")
+    id("buildlogic.java-library-conventions")
     `maven-publish`
 }
 

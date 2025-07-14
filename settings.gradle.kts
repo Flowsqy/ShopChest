@@ -9,4 +9,4 @@ plugins {
 }
 
 rootProject.name = "ShopChest"
-include("nms:interface", "nms:reflection")
+include("nms:interface", "nms:reflection", "plugin")
