@@ -1,5 +1,6 @@
 plugins {
     id("buildlogic.java-library-conventions")
+    id("com.gradleup.shadow") version "9.0.0-rc1"
 }
 
 repositories {
@@ -30,6 +31,15 @@ repositories {
     }    
 }
 
+val localDependencies = 
+tasks.shadowJar {
+    dependencies {
+        include(project(":nms:interface"))
+        include(project(":nms:reflection"))
+        include(dependency("de.epiceric:shopchest-nms-spigot-all"))
+    }
+}
+
 dependencies {
     // Nms modules
     implementation(project(":nms:interface"))
@@ -53,5 +63,7 @@ dependencies {
     implementation("com.github.IntellectualSites.PlotSquared:Core:4.453")
     implementation("com.github.TownyAdvanced:Towny:0.97.5.0")
     // Add libs that does not belong to any valid maven repository
-    implementation(files("../lib/AreaShop-2.6.0.jar", "../lib/IslandWorld-8.5.jar"))
+    // Using implementation makes shadow to include them in the final jar.
+    // Local dependencies are not handled well and can't be excluded (see https://github.com/GradleUp/shadow/issues/142)
+    compileOnly(files("../lib/AreaShop-2.6.0.jar", "../lib/IslandWorld-8.5.jar"))
 }
