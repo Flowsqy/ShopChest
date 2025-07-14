@@ -37,7 +37,15 @@ tasks.shadowJar {
         include(project(":nms:interface"))
         include(project(":nms:reflection"))
         include(dependency("de.epiceric:shopchest-nms-spigot-all"))
+        include(dependency("org.inventivetalent:reflectionhelper"))
+        include(dependency("org.codemc.worldguardwrapper:worldguardwrapper"))
+        include(dependency("org.bstats:bstats-bukkit"))
+        include(dependency("com.zaxxer:HikariCP"))
     }
+    relocate("org.bstats", "de.epiceric.shopchest.dependencies.bstats")
+    relocate("org.codemc.worldguardwrapper", "de.epiceric.shopchest.dependencies.worldguardwrapper")
+    relocate("com.zaxxer.hikari", "de.epiceric.shopchest.dependencies.hikari")
+    relocate("org.inventivetalent.reflection", "de.epiceric.shopchest.dependencies.reflectionhelper")
 }
 
 dependencies {
@@ -48,7 +56,7 @@ dependencies {
     // Shaded api
     implementation("org.inventivetalent:reflectionhelper:1.18.13-SNAPSHOT")
     implementation("org.codemc.worldguardwrapper:worldguardwrapper:1.2.0-SNAPSHOT")
-    implementation("org.bstats:bstats-bukkit:2.2.1")
+    implementation("org.bstats:bstats-bukkit:3.0.2")
     implementation("com.zaxxer:HikariCP:6.3.0")
     // Used api
     implementation("com.github.MilkBowl:VaultAPI:1.7")
@@ -66,4 +74,12 @@ dependencies {
     // Using implementation makes shadow to include them in the final jar.
     // Local dependencies are not handled well and can't be excluded (see https://github.com/GradleUp/shadow/issues/142)
     compileOnly(files("../lib/AreaShop-2.6.0.jar", "../lib/IslandWorld-8.5.jar"))
+}
+
+project.base.archivesName.set(rootProject.name)
+group = "de.epiceric"
+version = "1.15.0-SNAPSHOT"
+
+tasks.processResources {
+    expand(Pair("version", version))
 }
