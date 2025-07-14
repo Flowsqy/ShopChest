@@ -25,6 +25,7 @@
         <module>v1_21_R2</module>
         <module>v1_21_R3</module>
         <module>v1_21_R4</module>
+        <module>v1_21_R5</module>
         <module>all</module>
     </modules>
 
@@ -34,7 +35,7 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
 
         <!-- JDK Version -->
-        <maven.compiler.release>21</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
 
         <!-- Default Spigot version for nms implementation. Must be overridden  -->
         <spigot.version>defaultVersion</spigot.version>
