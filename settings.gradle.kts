@@ -9,4 +9,10 @@ plugins {
 }
 
 rootProject.name = "ShopChest"
-include("nms:interface", "nms:reflection", "plugin")
+include("plugin")
+include("nms:interface", "nms:reflection")
+// Include all paper nms module
+val versions = arrayOf("v1_21_7")
+for (version in versions) {
+    include("nms:paper:${version}")
+}

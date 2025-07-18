@@ -1,5 +1,5 @@
 plugins {
-    id("buildlogic.java-library-conventions")
+    id("buildlogic.java-spigot-conventions")
     id("com.gradleup.shadow") version "9.0.0-rc1"
 }
 
