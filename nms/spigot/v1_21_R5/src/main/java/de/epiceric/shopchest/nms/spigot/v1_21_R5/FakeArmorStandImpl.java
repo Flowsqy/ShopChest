@@ -1,4 +1,4 @@
-package de.epiceric.shopchest.nms.v1_21_R5;
+package de.epiceric.shopchest.nms.spigot.v1_21_R5;
 
 import java.lang.reflect.Field;
 import java.util.List;

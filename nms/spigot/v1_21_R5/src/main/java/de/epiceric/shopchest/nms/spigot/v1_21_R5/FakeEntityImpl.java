@@ -1,4 +1,4 @@
-package de.epiceric.shopchest.nms.v1_21_R5;
+package de.epiceric.shopchest.nms.spigot.v1_21_R5;
 
 import de.epiceric.shopchest.nms.FakeEntity;
 import net.minecraft.network.protocol.Packet;
