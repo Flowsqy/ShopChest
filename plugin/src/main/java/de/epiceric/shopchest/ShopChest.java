@@ -366,7 +366,7 @@ public class ShopChest extends JavaPlugin {
     }
 
     private void checkForUpdates() {
-        if (!Config.enableUpdateChecker) {
+        if (true || !Config.enableUpdateChecker) {
             return;
         }
         

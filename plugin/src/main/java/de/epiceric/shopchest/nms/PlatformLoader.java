@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 
 import org.bukkit.Bukkit;
 
-import de.epiceric.shopchest.nms.reflection.PlatformImpl;
 import de.epiceric.shopchest.nms.reflection.ShopChestDebug;
 import de.epiceric.shopchest.utils.Utils;
 
@@ -19,6 +18,7 @@ public class PlatformLoader {
 
     public Platform loadPlatform() {
         Platform platform = null;
+        // Reflection sub module
         if (Utils.getMajorVersion() < 17) {
             final String bukkitPackageVersion = getBukkitPackageVersion();
             platform = getReflectionPlatform(bukkitPackageVersion);
@@ -29,16 +29,52 @@ public class PlatformLoader {
             }
             return platform;
         }
-        final String mappingsVersion = getMappingsVersion();
-        if (mappingsVersion == null) {
-            throw new RuntimeException("Could not get any information about the server version");
+        // General spigot mapped nms modules
+        if (Utils.getMajorVersion() < 21 || (Utils.getMajorVersion() == 21 && getMinorVersion() < 6)) {
+            final String mappingsVersion = getMappingsVersion();
+            return getSpecificPlatform(mappingsVersion);
         }
-        platform = getSpecificPlatform(mappingsVersion);
+        // Paper specific nms modules
+        final String paperMinecraftVersion = getPaperMinecraftVersion();
+        if (paperMinecraftVersion != null) {
+            platform = getPaperPlatform(paperMinecraftVersion);
+        } else {
+            final String mappingsVersion = getMappingsVersion();
+            if (mappingsVersion == null) {
+                // We should never get there
+                throw new RuntimeException("Could not get any information about the server version.");
+            }
+            platform = getSpigotPlatform(mappingsVersion);
+        }
         if (platform == null) {
-            throw new RuntimeException(
-                    "Server version not officially supported. Mappings : " + "'" + mappingsVersion + "'");
+            throw new RuntimeException("Server version not officially supported.");
         }
         return platform;
+    }
+
+    // Get the minor minecraft version.
+    private int getMinorVersion() {
+        final String bukkitVersion = Bukkit.getServer().getBukkitVersion();
+        final String[] minecraftVersion = bukkitVersion.substring(0, bukkitVersion.indexOf('-')).split("\\.");
+        try {
+            return Integer.valueOf(minecraftVersion[2]);
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+
+    // Get minecraft version id through paper
+    // Paper replacement to spigot nms mappings
+    private String getPaperMinecraftVersion() {
+        try {
+            final Class<?> paperServerBuildInfoClass = Class.forName("io.papermc.paper.ServerBuildInfo");
+            final Method buildInfoMethod = paperServerBuildInfoClass.getDeclaredMethod("buildInfo");
+            final Method minecraftVersionIdMethod = paperServerBuildInfoClass.getDeclaredMethod("minecraftVersionId");
+            final Object buildInfo = buildInfoMethod.invoke(null);
+            return (String) minecraftVersionIdMethod.invoke(buildInfo);
+        } catch (Exception ignored) {
+        }
+        return null;
     }
 
     private Platform getReflectionPlatform(String nmsVersion) {
@@ -58,7 +94,7 @@ public class PlatformLoader {
             case "v1_16_R1":
             case "v1_16_R2":
             case "v1_16_R3":
-                return new PlatformImpl(debug);
+                return new de.epiceric.shopchest.nms.reflection.PlatformImpl(debug);
             default:
                 return null;
         }
@@ -122,6 +158,27 @@ public class PlatformLoader {
                 return new de.epiceric.shopchest.nms.v1_21_R3.PlatformImpl();
             case "7ecad754373a5fbc43d381d7450c53a5": // 1.21.5 (v1_21_R4)
                 return new de.epiceric.shopchest.nms.v1_21_R4.PlatformImpl();
+            default:
+                return null;
+        }
+    }
+
+    private Platform getPaperPlatform(String minecraftVersionId) {
+        switch (minecraftVersionId) {
+            case "1.21.6":
+            case "1.21.7":
+            case "1.21.8":
+                return new de.epiceric.shopchest.nms.paper.v1_21_7.PlatformImpl();
+            default:
+                return null;
+        }
+    }
+
+    private Platform getSpigotPlatform(String mappingsVersion) {
+        switch (mappingsVersion) {
+            case "164f8e872cb3dff744982fca079642b2": // 1.21.6 (Replaced by 1.21.7)
+            case "98b42190c84edaa346fd96106ee35d6f": // 1.21.7 (and 1.21.8 which is clientside update) (v1_21_R5)
+                return new de.epiceric.shopchest.nms.spigot.v1_21_R5.PlatformImpl();
             default:
                 return null;
         }

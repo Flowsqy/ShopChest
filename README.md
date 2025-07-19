@@ -17,6 +17,12 @@ ShopChest - Spigot/Bukkit Plugin
 ## General information
 
 This fork of [ShopChest](https://github.com/EpicEricEE/ShopChest) intend to be updatable easily.
+You can find below the previous and original description of this fork.
+Although the current repository structure still respect what it's said in the section, goals changed.
+**The current project only aims to support recent minecraft versions.**
+Maybe in the future a complete rewrite will happen, but it has not started yet.
+
+### Previous description
 It also adds some common features like barrel or shulker shops.
 It's still in progress and therefore, this repository has many branches.
 Most of them have very explicit name, but there is two things to know:
@@ -86,18 +92,30 @@ You can find the javadoc here: https://epicericee.github.io/ShopChest/javadoc/
 
 ## Build
 
-You need Maven with Github access and a jdk.
-If you don't know how to give Github access to maven,
-check [this](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#authenticating-with-a-personal-access-token)
-.
-If you don't know how to create a personal token,
-check [this](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
-.
+To compile the project, you will need jdk 21 and maven.
 
-- Use ``sh lib/install_local_depedencies.sh`` to import local dependencies.
-- Use ``mvn clean install`` at the root of the project to build ShopChest artifact.
+You also need, in order to compile nms spigot modules, to have previously run the spigot buildtools with the `--remapped` arg for each version specified in `nms/spigot/README.md`.
+This requirement might force you to get other jdk version to run the buildtools for specific versions. It's only needed by the buildtools, not by ShopChest.
 
-After the build succeeded, the ShopChest.jar is found in the ``/plugin/target/`` folder.
+First, add nms interface to your maven local repository.
+```batch
+./gradlew nms:interface:publishToMavenLocal
+```
+It needs to be done at least once.
+As long as there is no changes to the `nms/interface` module, you don't need to do this step again.
+
+Then you need to compile spigot nms submodules
+```batch
+cd nms/spigot
+mvn install
+```
+
+Finally to actually compile the plugin, return at the root of the project (`cd ../..` if you are in the same shell) and do
+```batch
+./gradlew plugin:shadowJar
+```
+
+After the build succeeded, the ShopChest jar is found in the `plugin/build/libs/` folder.
 
 ## Issues
 
