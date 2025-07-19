@@ -15,4 +15,3 @@ paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArt
 tasks.withType<JavaCompile> {
     options.release = 21
 }
-

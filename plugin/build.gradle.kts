@@ -36,6 +36,7 @@ tasks.shadowJar {
     dependencies {
         include(project(":nms:interface"))
         include(project(":nms:reflection"))
+        include(project(":nms:paper"))
         include(dependency("de.epiceric:shopchest-nms-spigot-all"))
         include(dependency("org.inventivetalent:reflectionhelper"))
         include(dependency("org.codemc.worldguardwrapper:worldguardwrapper"))
@@ -53,6 +54,7 @@ dependencies {
     // Nms modules
     implementation(project(":nms:interface"))
     implementation(project(":nms:reflection"))
+    implementation(project(":nms:paper"))
     implementation("de.epiceric:shopchest-nms-spigot-all:1.0.4")
     // Shaded api
     implementation("org.inventivetalent:reflectionhelper:1.18.13-SNAPSHOT")
