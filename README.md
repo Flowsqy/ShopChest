@@ -94,14 +94,15 @@ You can find the javadoc here: https://epicericee.github.io/ShopChest/javadoc/
 
 To compile the project, you will need jdk 21 and maven.
 
-You also need, in order to compile nms spigot modules to have previously run the spigot buildtools with the `--remapped` arg for each version specified in nms/spigot/README.md.
-This requirement might force you to get other jdk version to run the buildtools for specific versions. It's only needed by the buildtools, not by shopchest
+You also need, in order to compile nms spigot modules, to have previously run the spigot buildtools with the `--remapped` arg for each version specified in `nms/spigot/README.md`.
+This requirement might force you to get other jdk version to run the buildtools for specific versions. It's only needed by the buildtools, not by ShopChest.
 
 First, add nms interface to your maven local repository.
-This can only be done once, while there is no changes to the `nms/interface` module.
 ```batch
 ./gradlew nms:interface:publishToMavenLocal
 ```
+It need to be done at least once.
+As long as there is no changes to the `nms/interface` module, you don't need to do this step again.
 
 Then you need to compile spigot nms submodules
 ```batch
