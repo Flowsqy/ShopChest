@@ -101,7 +101,7 @@ First, add nms interface to your maven local repository.
 ```batch
 ./gradlew nms:interface:publishToMavenLocal
 ```
-It need to be done at least once.
+It needs to be done at least once.
 As long as there is no changes to the `nms/interface` module, you don't need to do this step again.
 
 Then you need to compile spigot nms submodules

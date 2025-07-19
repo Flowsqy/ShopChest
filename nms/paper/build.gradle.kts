@@ -10,6 +10,12 @@ tasks.withType<JavaCompile> {
     options.release = 17
 }
 
+dependencies {
+    subprojects.forEach {
+        implementation(it)
+    }
+}
+
 tasks.named<Jar>("jar") {
     val moduleJarTasks = subprojects.map({it.tasks.jar})
     dependsOn(moduleJarTasks)
