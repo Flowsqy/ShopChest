@@ -17,6 +17,12 @@ ShopChest - Spigot/Bukkit Plugin
 ## General information
 
 This fork of [ShopChest](https://github.com/EpicEricEE/ShopChest) intend to be updatable easily.
+You can find below the previous and original description of this fork.
+Although the current repository structure still respect what it's said in the section, goals changed.
+**The current project only aims to support recent minecraft versions.**
+Maybe in the future a complete rewrite will happen, but it has not started yet.
+
+### Previous description
 It also adds some common features like barrel or shulker shops.
 It's still in progress and therefore, this repository has many branches.
 Most of them have very explicit name, but there is two things to know:
