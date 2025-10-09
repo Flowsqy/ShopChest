@@ -181,6 +181,8 @@ public class PlatformLoader {
             case "164f8e872cb3dff744982fca079642b2": // 1.21.6 (Replaced by 1.21.7)
             case "98b42190c84edaa346fd96106ee35d6f": // 1.21.7 (and 1.21.8 which is clientside update) (v1_21_R5)
                 return new de.epiceric.shopchest.nms.spigot.v1_21_R5.PlatformImpl();
+            case "614efe5192cd0510bc2ddc5feefa155d": // 1.21.10 (and probably 1.21.9 which does not have any hash apparently) (v1_21_R6)
+                return new de.epiceric.shopchest.nms.spigot.v1_21_R6.PlatformImpl();
             default:
                 return null;
         }
