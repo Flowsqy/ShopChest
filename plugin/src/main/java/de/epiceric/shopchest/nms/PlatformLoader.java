@@ -170,6 +170,7 @@ public class PlatformLoader {
             case "1.21.8":
             case "1.21.9":
             case "1.21.10":
+            case "1.21.11":
                 return new de.epiceric.shopchest.nms.paper.v1_21_7.PlatformImpl();
             default:
                 return null;
@@ -183,6 +184,8 @@ public class PlatformLoader {
                 return new de.epiceric.shopchest.nms.spigot.v1_21_R5.PlatformImpl();
             case "614efe5192cd0510bc2ddc5feefa155d": // 1.21.10 (and probably 1.21.9 which does not have any hash apparently) (v1_21_R6)
                 return new de.epiceric.shopchest.nms.spigot.v1_21_R6.PlatformImpl();
+            case "e3cd927e07e6ff434793a0474c51b2b9": // 1.21.11 (v1_21_R7)
+                return new de.epiceric.shopchest.nms.spigot.v1_21_R7.PlatformImpl();
             default:
                 return null;
         }
