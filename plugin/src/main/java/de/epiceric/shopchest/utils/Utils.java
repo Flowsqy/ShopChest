@@ -319,7 +319,7 @@ public class Utils {
         try {
             final String bukkitVersion = Bukkit.getServer().getBukkitVersion();
             final String[] minecraftVersion = bukkitVersion.substring(0, bukkitVersion.indexOf('-')).split("\\.");
-            rawMajorVersion = minecraftVersion[1];
+            rawMajorVersion = minecraftVersion["1".equals(minecraftVersion[0]) ? 1 : 0];
         } catch (Exception e) {
             try {
                 final String packageName = Bukkit.getServer().getClass().getPackage().getName();
