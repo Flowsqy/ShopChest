@@ -12,7 +12,7 @@ rootProject.name = "ShopChest"
 include("plugin")
 include("nms:interface", "nms:reflection")
 // Include all paper nms module
-val paperNmsVersions = arrayOf("v1_21_7")
+val paperNmsVersions = arrayOf("v1_21_7", "v26_2")
 val paperNmsProjects = paperNmsVersions.map({"nms:paper:${it}"})
 include("nms:paper")
 include(paperNmsProjects)

@@ -7,11 +7,10 @@ dependencies {
     implementation(project(":nms:interface")) {
         exclude(module = "spigot-api")
     }
-    paperweight.paperDevBundle("1.21.8-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("26.2.build.+")
 }
-
-paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION
 
 tasks.withType<JavaCompile> {
-    options.release = 21
+    options.release = 25
 }
+

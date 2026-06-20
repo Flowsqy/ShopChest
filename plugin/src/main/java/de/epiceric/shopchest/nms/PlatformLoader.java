@@ -193,8 +193,6 @@ public class PlatformLoader {
             case "1.21.9":
             case "1.21.10":
             case "1.21.11":
-            case "26.1":
-            case "26.1.2":
                 return new de.epiceric.shopchest.nms.paper.v1_21_7.PlatformImpl();
             default:
                 return null;

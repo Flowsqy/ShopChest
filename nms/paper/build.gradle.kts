@@ -1,5 +1,6 @@
 plugins {
     java
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.21" apply false
 }
 
 // Here we trick dependency resolution.
@@ -10,11 +11,15 @@ tasks.withType<JavaCompile> {
     options.release = 17
 }
 
+// Consume correct variants of artifacts
+java.disableAutoTargetJvm()
+
 dependencies {
     subprojects.forEach {
-        implementation(it)
+        compileOnly(project(it.name))
     }
 }
+
 
 tasks.named<Jar>("jar") {
     val moduleJarTasks = subprojects.map({it.tasks.jar})
