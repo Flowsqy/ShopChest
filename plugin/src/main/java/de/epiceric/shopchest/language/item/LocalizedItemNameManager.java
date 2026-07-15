@@ -64,7 +64,7 @@ public class LocalizedItemNameManager implements ItemNameManager {
     @NotNull
     private String getDefaultName(@NotNull ItemStack stack) {
         try {
-            return getCached(stack.getTranslationKey());
+            return getCached(stack.getType().getTranslationKey());
         } catch (Exception e) {
             ShopChest.getInstance().getLogger().log(Level.SEVERE, e.getMessage());
             return ERROR_ITEM_NAME;
