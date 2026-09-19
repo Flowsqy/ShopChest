@@ -220,6 +220,8 @@ public class PlatformLoader {
                 return new de.epiceric.shopchest.nms.paper.v1_21_7.PlatformImpl();
             case "26.2":
                 return new de.epiceric.shopchest.nms.paper.v26_2.PlatformImpl();
+            case "26.3":
+                return new de.epiceric.shopchest.nms.paper.v26_3.PlatformImpl();
             default:
                 return null;
         }
